@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[123]:
+# In[ ]:
 
 
 import pandas as pd
 import numpy as ny
 
 
-# In[124]:
+# In[ ]:
 
+
+print("SEARCHER")
 
 # Read in data from the keywords / config file
 df_search = pd.read_csv('keywords.csv')
@@ -39,7 +41,7 @@ search_columns = [item for item in search_columns if not pd.isna(item)]
 print("Blank search words removed")
 
 
-# In[125]:
+# In[ ]:
 
 
 print("Details for debugging...")
@@ -51,9 +53,12 @@ print(keywords_soft)
 print("")
 print(str(len(search_columns))+ " Columns to search:")
 print(search_columns)
+print("")
+print("!! Set up complete")
+print("")
 
 
-# In[126]:
+# In[ ]:
 
 
 # load the CSV file
@@ -64,10 +69,11 @@ print("Loaded search file")
 # Create columns that will be used to flag matched records
 df_data['MATCH-HARD'] = False
 df_data['MATCH-SOFT'] = False
+df_data['MATCH'] = False
 print("Created flag fields and set to False")
 
 
-# In[127]:
+# In[ ]:
 
 
 # Hard matches first
@@ -84,15 +90,19 @@ for keyword in keywords_soft:
     for col in search_columns:
         df_data['MATCH-SOFT'] = df_data['MATCH-SOFT'] | df_data[col].astype(str).str.contains(keyword, case=False, na=False)
 
+df_data['MATCH'] = df_data['MATCH-HARD'] | df_data['MATCH-SOFT']
+
 print("Soft search complete")
 
 
-# In[128]:
+# In[ ]:
 
 
 # Export data to a new CSV
 df_data.to_csv('Data-Processed.csv', index=False)
 print("Processed data saved to new CSV file")
+print("")
+print("!!SEARCHER COMPLETE")
 
 
 # In[ ]:
