@@ -18,7 +18,6 @@ df_search = pd.read_csv('keywords.csv')
 
 print("Loaded config file")
 
-
 # Make data lowercase
 for i in range(2):
     col_name = df_search.columns[i]
@@ -30,6 +29,7 @@ print("Search words made lower case")
 keywords_hard = df_search.iloc[:,0].tolist()
 keywords_soft = df_search.iloc[:,1].tolist()
 search_columns = df_search.iloc[:,2].tolist()
+search_columns1 = df_search.iloc[:,3].tolist()
 
 print("Search words moved to lists")
 
@@ -37,6 +37,7 @@ print("Search words moved to lists")
 keywords_hard = [item for item in keywords_hard if not pd.isna(item)]
 keywords_soft = [item for item in keywords_soft if not pd.isna(item)]
 search_columns = [item for item in search_columns if not pd.isna(item)]
+search_columns1 = [item for item in search_columns1 if not pd.isna(item)]
 
 print("Blank search words removed")
 
@@ -51,8 +52,11 @@ print("")
 print(str(len(keywords_soft))+ " Soft search words:")
 print(keywords_soft)
 print("")
-print(str(len(search_columns))+ " Columns to search:")
+print(str(len(search_columns))+ " Columns to search in ACTIONS file:")
 print(search_columns)
+print("")
+print(str(len(search_columns1))+ " Columns to search in EVENTS file:")
+print(search_columns1)
 print("")
 print("!! Set up complete")
 print("")
@@ -62,14 +66,21 @@ print("")
 
 
 # load the CSV file
-df_data = pd.read_csv('DATA.csv')
+df_data = pd.read_csv('ACTIONS.csv')
+print("Loaded Actions file")
+df_data1 = pd.read_csv('EVENTS.csv')
+print("Loaded Events file")
 
-print("Loaded search file")
 
 # Create columns that will be used to flag matched records
 df_data['MATCH-HARD'] = False
 df_data['MATCH-SOFT'] = False
 df_data['MATCH'] = False
+
+df_data1['MATCH-HARD'] = False
+df_data1['MATCH-SOFT'] = False
+df_data1['MATCH'] = False
+
 print("Created flag fields and set to False")
 
 
@@ -83,14 +94,19 @@ print("Created flag fields and set to False")
 for keyword in keywords_hard:
     for col in search_columns:
         df_data['MATCH-HARD'] = df_data['MATCH-HARD'] | df_data[col].astype(str).str.contains(keyword, case=False, na=False)
+    for col in search_columns1:
+        df_data1['MATCH-HARD'] = df_data1['MATCH-HARD'] | df_data1[col].astype(str).str.contains(keyword, case=False, na=False)
 
 print("Hard search complete")
 
 for keyword in keywords_soft:
     for col in search_columns:
         df_data['MATCH-SOFT'] = df_data['MATCH-SOFT'] | df_data[col].astype(str).str.contains(keyword, case=False, na=False)
+    for col in search_columns1:
+        df_data1['MATCH-SOFT'] = df_data1['MATCH-SOFT'] | df_data1[col].astype(str).str.contains(keyword, case=False, na=False)
 
 df_data['MATCH'] = df_data['MATCH-HARD'] | df_data['MATCH-SOFT']
+df_data1['MATCH'] = df_data1['MATCH-HARD'] | df_data1['MATCH-SOFT']
 
 print("Soft search complete")
 
@@ -99,10 +115,11 @@ print("Soft search complete")
 
 
 # Export data to a new CSV
-df_data.to_csv('Data-Processed.csv', index=False)
-print("Processed data saved to new CSV file")
+df_data.to_csv('Data-Actions.csv', index=False)
+df_data1.to_csv('Data-Events.csv', index=False)
+print("Processed data saved to new CSV filesDa")
 print("")
-print("!!SEARCHER COMPLETE")
+print("SEARCHER COMPLETE")
 
 
 # In[ ]:
