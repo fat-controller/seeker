@@ -1,13 +1,13 @@
-﻿HARD,SOFT,ACTION SEARCH COLS,EVENT SEARCH COLS
-temporary works,designer,Step Details/Title,Report Event/Description of the Event (Do not included any names - use Injured Person or Operative/Job Title)
-twc,crane mat,Step Details/Description,Event Details/Sub Category
-tws,crane platform,Step Details/Action Due By,Event Details/Sub Sub Category
-temp works,piling mat,Step Details/Action Type,Event Details/Please select the simple action breach(s)
-temp. works,piling platform,,Event Details/Category of Event
-TWD,trench box,,Review/Triage Comments
-MAE,shoring,,
-check certificate,cofferdam,,
-TWDB,sheet pile,,
-DCC,sheet piles,,
-,crane,,
-,piling rig,,
+HARD,SOFT,PPI-HARD,PPI-SOFT,ACTION SEARCH COLS,EVENT SEARCH COLS
+temporary works,designer,Plant,Delivery,Step Details/Title,Report Event/Description of the Event (Do not included any names - use Injured Person or Operative/Job Title)
+twc,crane mat,Banksman,Driver,Step Details/Description,Event Details/Sub Category
+tws,crane platform,,Walking route,Step Details/Action Due By,Event Details/Sub Sub Category
+temp works,piling mat,,Excavator,Step Details/Action Type,Event Details/Please select the simple action breach(s)
+temp. works,piling platform,,Telehandler,,Event Details/Category of Event
+TWD,trench box,,RRV,,Review/Triage Comments
+MAE,shoring,,MEWP,,
+check certificate,cofferdam,,Struck,,
+TWDB,sheet pile,,Hit,,
+DCC,sheet piles,,Gate,,
+,crane,,,,
+,piling rig,,,,
